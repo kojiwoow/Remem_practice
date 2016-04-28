@@ -42,32 +42,36 @@
             android:textSize="40dp"
             android:paddingTop="20dp" />
 
-        <TimePicker
-            android:id="@+id/timePicker1"
-            android:layout_width="wrap_content"
+        <EditText
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:timePickerMode="spinner"
-            android:foregroundGravity="center"
-            android:paddingLeft="40dp"
-
-            android:numbersSelectorColor="#3b45b3"
-            android:amPmTextColor="#ffffff"
-            android:amPmBackgroundColor="#0770f0">
-        </TimePicker>
+            android:id="@+id/time"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Date:"
+            android:text="How often:"
             android:id="@+id/textView11"
             android:textSize="40dp" />
 
-        <DatePicker
+        <EditText
             android:layout_width="match_parent"
-            android:layout_height="57dp"
-            android:id="@+id/datePicker"
-            android:background="#0770f0" />
+            android:layout_height="wrap_content"
+            android:id="@+id/often"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="How Many"
+            android:textSize="40dp"
+            />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/many"/>
 
         <Button
             android:layout_width="wrap_content"
@@ -78,6 +82,7 @@
             android:background="#ffffff"
             android:textColor="#0770f0"
             android:layout_gravity="right" />
+
 
     </LinearLayout>
 </ScrollView>

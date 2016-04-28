@@ -72,7 +72,9 @@ public class TimetableView extends ActionBarActivity {
         medicineLocalStore = new MedicineLocalStore(this);
         Medicine = medicineLocalStore.getLoggedInUser();
 
-
+        connectionThread connect = new connectionThread(TimetableView.this);
+        person = connect.getPerson();
+        connect.MonitorNotifications(person);
 
        email = intent.getStringExtra("email");
 

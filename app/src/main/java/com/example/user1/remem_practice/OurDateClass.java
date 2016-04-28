@@ -12,6 +12,10 @@ public class OurDateClass {
     OurDateClass(){
 
     }
+    OurDateClass(Date d){
+            this.setTodayDate(d);
+            this.setTimeNow(d);
+    }
 
     public void setDay(int d){
         day =d;

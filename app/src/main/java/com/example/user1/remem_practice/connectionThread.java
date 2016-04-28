@@ -9,7 +9,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
-
+import java.util.Date;
 /**
  * Created by user1 on 2016-04-12.
  */
@@ -174,12 +174,89 @@ public class connectionThread extends AsyncTask<Void, Void, Void> {
         sendMessage("-infoTimetables;" + ID);
     }
 
+    public void add(Person user,boolean check){
+				 		/* when press button "Add" then read name of medicine from 'MedicineList' read (IF "+add new medicine to DB" THEN ask 'Do you want to add new medicine name and info to DB?' )*/
+            if(check == true){
+                medicineTimetables timetable = user.returnTimetable(user.returnArrayListOfTimetables().size()-1);
+				 			/*message form "*addTimetable;IDUser;medicineName;medicineStrength;dateFrom;timeFrom;dateUntil;timeUntil;"*/
+                String sendMessage = "*addTimetable;"+user.returnID()+";"+timetable.returnMedicine().returnNameOfMedicine()+";"+timetable.returnMedicine().returnStrengthOfMedicine()+";"+timetable.returnDate("from")+";"+timetable.returnTime("from")+";"+timetable.returnDate("to")+";"+timetable.returnTime("to")+";";
+                sendMessage(sendMessage);
+            }
+    }
+
+    protected boolean setNewTimetable(int howOften,int numberOfPills,String Date,String time,String medicine) {
+	/*make new timetable and add to persons timetable arraylist*/ //DONE
+        boolean b = true;
+                medicineTimetables timetable = new medicineTimetables();
+                timetable.setTimetableFromClient(medicine, howOften, numberOfPills, Date, time);
+                 person = getPerson();
+                 person.returnArrayListOfTimetables().add(timetable);
+        return b;
+
+    }
+
     public static Context getContext() {
         return mContext;
     }
 
     public static Person getPerson() {
         return person;
+    }
+
+    public void MonitorNotifications(Person person){
+        final Person user = person;
+        Thread threadNotification = new Thread(){
+
+            public void run(){
+                boolean b = false;
+                while(true){
+                    OurDateClass now = new OurDateClass(new Date());
+                    OurDateClass help = new OurDateClass();
+                    //synchronized(this){
+                    for(medicineTimetables m : user.returnArrayListOfTimetables()){
+                        for(notification n : m.returnArrayListOfNotificaations()){
+                            int d = help.compareDates(n.returnNotificationDate(), now.returnDate());
+                            if(d == 0){
+                                int t = help.compareTimes(n.returnNotificationTime(), now.returnTime());
+                                if(t == 0){
+                                    if(n.returnNotificationStatus().equals("new")){
+                                        //System.out.println("t = "+t+"  d= "+d);
+                                    //    makeNotificationsGUI("It's time to take medicine "+m.returnMedicine().returnNameOfMedicine(), n, m);
+                                        //System.out.println("It's time to take medicine "+m.returnMedicine().returnNameOfMedicine());
+                                     //   Toast.makeText(getContext(),"This is notification", Toast.LENGTH_SHORT).show();
+                                        n.setNotificationStatus("waiting");
+										/*message form "!updateStatusOfNotification;IDtable;dateNotification;TimeNotification;status;"*/
+                                        String sendMessage = "!updateStatusOfNotification;"+m.returnIdOfTimetable()+";"+n.returnNotificationDate()+";"+n.returnNotificationTime()+";"+n.returnNotificationStatus()+";";
+                                        sendMessage(sendMessage);
+                                        b = true;
+                                        break;
+                                    }
+                                    else if(n.returnNotificationStatus().equals("No")){
+                                      //  makeNotificationsGUI("It's time to take medicine "+m.returnMedicine().returnNameOfMedicine(), n, m);
+                                        b = true;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                        if(b == true)
+                            break;
+                    }
+                    try {
+                        Thread.sleep(60*1000);
+                    } catch (InterruptedException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                    if(b == true)
+                        break;
+                    //}
+                }
+            }
+
+
+        };
+        threadNotification.start();
     }
 }
 
