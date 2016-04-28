@@ -40,7 +40,7 @@ public class MainActivity extends ActionBarActivity {
                 String E_mail = email.getText().toString();
                 String Password = password.getText().toString();
                 connection.SignIn(E_mail, Password);
-                Intent intent = new Intent(MainActivity.this, Test.class);
+                Intent intent = new Intent(MainActivity.this, TimetableView.class);
                 intent.putExtra("email", E_mail);
                 person = personLocalStore.getLoggedInUser();
                 if(person.returnID() == 30)

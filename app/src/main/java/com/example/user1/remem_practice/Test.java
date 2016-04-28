@@ -18,8 +18,8 @@ public class Test extends Activity {
     MedicineLocalStore medicineLocalStore;
     medicine Medicine;
 
-    Button button1,button2,button3,button4,button5;
     Intent intent;
+    Button button1,button2,button3,button4,button5;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.test);
@@ -76,7 +76,7 @@ public class Test extends Activity {
         button5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Test.this,ListviewTest.class));
+                startActivity(new Intent(Test.this,ListviewTest_.class));
             }
         });
     }

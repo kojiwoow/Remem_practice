@@ -1,48 +1,71 @@
 package com.example.user1.remem_practice;
 
-/**
- * Created by user1 on 2016-04-12.
- */
+import android.content.Context;
+import android.database.Cursor;
+import android.net.Uri;
 
-import android.app.Activity;
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Toast;
-
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 
-public class Timetable extends Activity {
 
-    PersonLocalStore personLocalStore;
-    Person person;
-    ContactPersonLocalStore contactStore;
-    Person ContactPerson;
+public class Timetable {
+    /*CalendarView calendarView;
+    ImageButton addEventButton, size, add, account;
+    ListView Listview;
+    TextView event_titleTextView, event_descriptionTextView;
+    Events events;*/
 
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+   /* @Override
+    protected void onCreate (Bundle savedInstancestate) {
+        super.onCreate(savedInstancestate);
         setContentView(R.layout.activity_calendar);
-        personLocalStore = new PersonLocalStore(this);
-        person = personLocalStore.getLoggedInUser();
 
-        contactStore = new ContactPersonLocalStore(this);
-        ContactPerson = contactStore.getLoggedInUser();
-        Toast.makeText(this,person.returnName()+" "+this.person.returnID()+" "+this.person.returnSex(),Toast.LENGTH_SHORT).show();
-       // returnUser = new PersonLocalStore(this);
 
+        account.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Timetable.this, Profile.class));
+            }
+
+        });
+
+    }*/
+
+
+    public static ArrayList<String> nameOfEvent = new ArrayList<String>();
+    public static ArrayList<String> startDates = new ArrayList<String>();
+    public static ArrayList<String> endDates = new ArrayList<String>();
+    public static ArrayList<String> descriptions = new ArrayList<String>();
+
+    public static ArrayList<String> readCalendarEvent(Context context) {
+        Cursor cursor = context.getContentResolver()
+                .query(Uri.parse("content://com.android.calendar/events"),
+                        new String[]{"calendar_id", "title", "description", "dtstart", "dtend", "eventLocation"}, null, null, null);
+        cursor.moveToFirst();
+        String CNames[] = new String[cursor.getCount()];
+
+        nameOfEvent.clear();
+        startDates.clear();
+        endDates.clear();
+        descriptions.clear();
+        for (int i = 0; i < CNames.length; i++) {
+
+            nameOfEvent.add(cursor.getString(1));
+            startDates.add(getDate(cursor.getLong(3)));
+            endDates.add(getDate(cursor.getLong(4)));
+            descriptions.add(cursor.getString(2));
+            CNames[i] = cursor.getString(1);
+            cursor.moveToNext();
+        }
+        return nameOfEvent;
     }
 
-    public void onAddEventClicked(View view) {
-        Calendar onAddEventClicked = Calendar.getInstance();
-        Intent i = new Intent(Intent.ACTION_EDIT);
-        i.setType("vnd.android.cursor.item/event");
-        i.putExtra("beginTime", onAddEventClicked.getTimeInMillis());
-        i.putExtra("allDay", true);
-        i.putExtra("rule", "FREQ=YEARLY");
-        i.putExtra("endTime", onAddEventClicked.getTimeInMillis() + 60 * 60 * 1000);
-        i.putExtra("title", "Sample Calender Event Android Application");
-        startActivity(i);
+    public static String getDate(long milliSeconds) {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd");
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(milliSeconds);
+        return formatter.format(calendar.getTime());
     }
 }

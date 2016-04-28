@@ -1,33 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="fill_parent"
-android:layout_height="fill_parent"
-android:paddingBottom="@dimen/activity_vertical_margin"
-android:paddingLeft="@dimen/activity_horizontal_margin"
-android:paddingRight="@dimen/activity_horizontal_margin"
-android:paddingTop="@dimen/activity_vertical_margin"
-tools:context="com.example.domik.remem.MainActivity"
-android:background="#ffffff">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.Android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.techlovejump.materialdesign.MainActivity"
+    android:background="#ffffff">
 
 
     <RelativeLayout
         android:id="@+id/header"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@drawable/calendar_top">
 
         <RelativeLayout
             android:id="@+id/previous"
             android:layout_width="40dip"
             android:layout_height="30dip"
-            android:layout_alignParentLeft="true" >
+            android:layout_alignParentLeft="true">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                />
+                android:background="@drawable/arrow_left" />
         </RelativeLayout>
 
         <TextView
@@ -44,35 +41,49 @@ android:background="#ffffff">
             android:id="@+id/next"
             android:layout_width="40dip"
             android:layout_height="30dip"
-            android:layout_alignParentRight="true" >
+            android:layout_alignParentRight="true">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true" />
+                android:layout_centerInParent="true"
+                android:background="@drawable/arrow_right" />
         </RelativeLayout>
     </RelativeLayout>
 
-    <GridView
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <GridView xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/gridview"
-        android:layout_below="@+id/header"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="300dp"
+        android:layout_below="@+id/header"
         android:layout_gravity="center_horizontal"
+        android:clickable="true"
+        android:focusableInTouchMode="false"
         android:listSelector="@android:color/transparent"
         android:numColumns="7"
         android:stretchMode="columnWidth" />
 
     <LinearLayout
         android:id="@+id/text"
-        android:layout_below="@+id/gridview"
         android:layout_width="match_parent"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/gridview"
+        android:orientation="vertical"
+        android:background="#ffffff">
 
+        <ScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#ffffff">
+
+            <TextView
+                android:id="@+id/showEvents"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/gridview"
+                android:background="#ffffff" />
+        </ScrollView>
     </LinearLayout>
 
 </RelativeLayout>

@@ -45,6 +45,12 @@ public class ClientAnswersToServer {
     public static void setContext(Context mContext){
         context = mContext;
     }
+
+    public static OnSearchMedicineResponse onSearchMedicineResponse;
+    public interface OnSearchMedicineResponse {
+        void onResponse(String[] MedicineList);
+    }
+
     /**
      * method calling in class Client inside endless loop for making desicions about received messages from server
      * @param serverMessage
@@ -68,6 +74,10 @@ public class ClientAnswersToServer {
 				/* divide medicine to list and reset the window with new list */ //DONE
             System.out.print(serverMessage);
             MedicineList = this.divideMedicineNamesToList(serverMessage);
+
+            if (this.onSearchMedicineResponse != null) {
+                this.onSearchMedicineResponse.onResponse(MedicineList);
+            }
             //TODO switch layout for add medicine
         }
 
@@ -215,7 +225,7 @@ public class ClientAnswersToServer {
                 count++;
         }
 			/*make list with the same size like count of names, and on position 0 give name "+add new medicine to DB"*/
-        String [] list= new String[count+1];
+        String [] list= new String[count];
         list[0] = "+add new medicine to DB";
         if(count > 1)
             for(int i =1; i < count; i++)
