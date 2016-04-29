@@ -304,4 +304,7 @@ public class ClientAnswersToServer {
         return MedicineList;
     }
 
+
 }
+
+

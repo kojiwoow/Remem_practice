@@ -178,6 +178,8 @@ public class connectionThread extends AsyncTask<Void, Void, Void> {
         sendMessage("-infoTimetables;" + ID);
     }
 
+
+
     public void add(Person user,boolean check){
 				 		/* when press button "Add" then read name of medicine from 'MedicineList' read (IF "+add new medicine to DB" THEN ask 'Do you want to add new medicine name and info to DB?' )*/
             if(check == true){
