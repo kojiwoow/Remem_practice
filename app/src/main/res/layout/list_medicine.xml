@@ -1,7 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_height="match_parent"
     android:background="#FFFFFF"
+    android:layout_height="match_parent"
     android:layout_width="match_parent"
     >
 
@@ -20,6 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Search"
+        android:textColor="#ff4081"
         android:id="@+id/button1"
         android:layout_alignBottom="@+id/editText1"
         android:layout_alignParentEnd="true" />
@@ -28,6 +29,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Add"
+        android:textColor="#ff4081"
         android:id="@+id/button2"
         android:layout_alignParentBottom="true"
         android:layout_alignEnd="@+id/button1" />

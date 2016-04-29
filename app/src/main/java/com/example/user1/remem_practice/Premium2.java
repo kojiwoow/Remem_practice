@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 /**
@@ -19,8 +20,9 @@ public class Premium2 extends ActionBarActivity {
     EditText editText, editText2, editText3, editText4,often,many,Time;
     Button buttonSave, button;
     DatePicker datePicker;
-    String date;
     Intent intent;
+    TimePicker tp;
+    String time;
     public void onStart() {
         super.onStart();
         EditText txtDate = (EditText) findViewById(R.id.editText4);
@@ -43,7 +45,7 @@ public class Premium2 extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.premium2);
-
+        tp = (TimePicker)findViewById(R.id.timePicker1);
         textView2 = (TextView) findViewById(R.id.textView2);
         textView3 = (TextView) findViewById(R.id.textView3);
         textView4 = (TextView) findViewById(R.id.textView4);
@@ -55,8 +57,13 @@ public class Premium2 extends ActionBarActivity {
         buttonSave = (Button) findViewById(R.id.buttonSave);
         often = (EditText)findViewById(R.id.often);
         many = (EditText)findViewById(R.id.many);
-        Time = (EditText)findViewById(R.id.time);
-
+      //  Time = (EditText)findViewById(R.id.time);
+        tp.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
+            @Override
+            public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
+                time = String.valueOf(hourOfDay)+":"+String.valueOf(minute);
+            }
+        });
       //  OurDateClass now = new OurDateClass(new Date());
       // Time.setText(now.returnTime());
 
@@ -69,7 +76,7 @@ public class Premium2 extends ActionBarActivity {
                 int numberOfpill = Integer.parseInt(many.getText().toString());
 
 
-                String time = Time.getText().toString();
+               // String time = Time.getText().toString();
                 intent = getIntent();
                 String medicine = intent.getStringExtra("Medicine");
                 connectionThread connect = new connectionThread(Premium2.this);

@@ -31,49 +31,61 @@
             android:layout_height="41dp"
             android:id="@+id/editText4"
             android:background="#0770f0"
-            android:autoText="false" />
+            android:autoText="false"
+
+            />
+
+        <TimePicker
+            android:paddingTop="20dp"
+            android:id="@+id/timePicker1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:timePickerMode="spinner"
+            android:foregroundGravity="center"
+            android:paddingLeft="40dp"
+            android:amPmTextColor="#ffffff"
+            android:amPmBackgroundColor="#0770f0">
+        </TimePicker>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Time:"
-            android:id="@+id/textView10"
-            android:textSize="40dp"
-            android:paddingTop="20dp" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/time"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="How often:"
+            android:text="How often(hour):"
             android:id="@+id/textView11"
-            android:textSize="40dp" />
+            android:textSize="40dp"
+            android:paddingTop="20dp"
+            />
 
         <EditText
-            android:layout_width="match_parent"
+            android:layout_width="213dp"
             android:layout_height="wrap_content"
             android:id="@+id/often"
+            android:paddingTop="20dp"
             />
 
         <TextView
+            android:paddingTop="20dp"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="How Many"
+            android:text="How Many Pills"
             android:textSize="40dp"
-            />
+            android:id="@+id/pills" />
+
+        <ViewSwitcher
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/viewSwitcher"
+            android:layout_gravity="center_horizontal" />
 
         <EditText
-            android:layout_width="match_parent"
+            android:paddingTop="20dp"
+            android:layout_width="211dp"
             android:layout_height="wrap_content"
             android:id="@+id/many"/>
 
         <Button
+            android:paddingTop="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="SAVE"
