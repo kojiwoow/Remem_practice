@@ -33,6 +33,10 @@
         <activity android:name=".ContactPerson"></activity>
         <activity android:name=".Test"></activity>
         <activity android:name=".ListviewTest_"></activity>
+        <activity android:name=".NotificationReceiver"></activity>
+        <activity android:name=".Register_one">
+        </activity>
+        <activity android:name=".Register_two"></activity>
         <activity
             android:name=".Profile"
             android:label="Profile"

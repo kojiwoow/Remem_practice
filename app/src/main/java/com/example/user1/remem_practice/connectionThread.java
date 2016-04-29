@@ -1,7 +1,11 @@
 package com.example.user1.remem_practice;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 
 import java.io.IOException;
@@ -203,8 +207,20 @@ public class connectionThread extends AsyncTask<Void, Void, Void> {
         return person;
     }
 
+    NotificationManager mNotifyManager;
+    Notification.Builder mBuilder;
     public void MonitorNotifications(Person person){
+        Intent intent = new Intent(getContext(),NotificationReceiver.class);
+        PendingIntent notifyPendingIntent = PendingIntent.getActivity(getContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         final Person user = person;
+        mNotifyManager =
+                (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
+        mBuilder = new Notification.Builder(getContext());
+        mBuilder.setContentTitle("Take Pill!")
+                .setContentText("You have to eat pill now")
+                .setContentIntent(notifyPendingIntent)
+                .setSmallIcon(R.drawable.logo);
+
         Thread threadNotification = new Thread(){
 
             public void run(){
@@ -220,19 +236,17 @@ public class connectionThread extends AsyncTask<Void, Void, Void> {
                                 int t = help.compareTimes(n.returnNotificationTime(), now.returnTime());
                                 if(t == 0){
                                     if(n.returnNotificationStatus().equals("new")){
-                                        //System.out.println("t = "+t+"  d= "+d);
-                                    //    makeNotificationsGUI("It's time to take medicine "+m.returnMedicine().returnNameOfMedicine(), n, m);
-                                        //System.out.println("It's time to take medicine "+m.returnMedicine().returnNameOfMedicine());
                                      //   Toast.makeText(getContext(),"This is notification", Toast.LENGTH_SHORT).show();
                                         n.setNotificationStatus("waiting");
 										/*message form "!updateStatusOfNotification;IDtable;dateNotification;TimeNotification;status;"*/
+                                        mNotifyManager.notify(0, mBuilder.build());
+
                                         String sendMessage = "!updateStatusOfNotification;"+m.returnIdOfTimetable()+";"+n.returnNotificationDate()+";"+n.returnNotificationTime()+";"+n.returnNotificationStatus()+";";
                                         sendMessage(sendMessage);
                                         b = true;
                                         break;
                                     }
                                     else if(n.returnNotificationStatus().equals("No")){
-                                      //  makeNotificationsGUI("It's time to take medicine "+m.returnMedicine().returnNameOfMedicine(), n, m);
                                         b = true;
                                         break;
                                     }
